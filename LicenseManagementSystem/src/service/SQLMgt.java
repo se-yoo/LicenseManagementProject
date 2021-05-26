@@ -250,8 +250,18 @@ public class SQLMgt {
 		
         ResultSet rs = null;
 	    stmt = conn.createStatement();
-	    String sql = "SELECT *, DATE(rgst_dt) FROM software_key_hist WHERE sw_seq = " + swKeyVO.getSwSeq()
-	    		+ " AND lic_key = '" + swKeyVO.getLicKey() + "'";
+	    String sql = "SELECT *, DATE(use_strt_dt), IFNULL(DATE(use_end_dt),''), DATE(rgst_dt)"
+	    		+ " FROM software_key_history WHERE sw_seq = " 
+	    		+ swKeyVO.getSwSeq() + " AND lic_key = '" + swKeyVO.getLicKey() + "'";
+	    
+	    if(swKeyVO.getSrchStat()>=0) {
+	    	sql += " AND stat_cd = "+swKeyVO.getSrchStat();
+	    }
+	    if(!swKeyVO.getSrchUserNm().equals("")) {
+	    	sql += " AND user_nm LIKE '%"+swKeyVO.getSrchUserNm()+"%'";
+	    }
+	    
+	    sql += " ORDER BY USE_END_DT, USE_STRT_DT DESC";
 	    
 	    rs = stmt.executeQuery(sql);
 	     
@@ -261,11 +271,11 @@ public class SQLMgt {
 	    	newSwKeyHist.setSwSeq(rs.getString(2));
 	    	newSwKeyHist.setLicKey(rs.getString(3));
 	    	newSwKeyHist.setUserNm(rs.getString(4));
-	    	newSwKeyHist.setUseStrtDt(rs.getString(5));
-	    	newSwKeyHist.setUseEndDt(rs.getString(6));
+	    	newSwKeyHist.setUseStrtDt(rs.getString(10));
+	    	newSwKeyHist.setUseEndDt(rs.getString(11));
 	    	newSwKeyHist.setStatCd(rs.getInt(7));
 	    	newSwKeyHist.setRgstId(rs.getString(8));
-	    	newSwKeyHist.setRgstDt(rs.getString(10));
+	    	newSwKeyHist.setRgstDt(rs.getString(12));
 	    	
 	    	results.add(newSwKeyHist);
 	    }

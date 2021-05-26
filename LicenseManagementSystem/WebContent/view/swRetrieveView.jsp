@@ -10,11 +10,23 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
 <script>
-	function fn_delete(swSeq) {
-		if(confirm("정말 삭제하시겠습니까?\n(라이선스 키, 사용현황, 대여기록 등 하위 데이터도 모두 삭제됩니다.)")) {
-			location.href="func/swDelete.jsp?swSeq="+swSeq;
-		}
+function fn_delete(swSeq) {
+	if(confirm("정말 삭제하시겠습니까?\n(라이선스 키, 사용현황, 대여기록 등 하위 데이터도 모두 삭제됩니다.)")) {
+		location.href="func/swDelete.jsp?swSeq="+swSeq;
 	}
+}
+
+function fn_statusView(swSeq,licKey) {
+	$("#modal").load("modal/swKeyHistListNowModal.jsp?swSeq="+swSeq+"&licKey="+licKey,function(){
+		$("#modal").modal();
+	});	
+}
+
+function fn_histView(swSeq,licKey) {
+	$("#modal").load("modal/swKeyHistListAllModal.jsp?swSeq="+swSeq+"&licKey="+licKey,function(){
+		$("#modal").modal();
+	});	
+}
 </script>
 </head>
 <body>
@@ -75,8 +87,16 @@
 			<tr>
 				<td><%= swKeyItem.getLicKey() %></td>
 				<td><%= swKeyItem.getAllowCnt() %></td>
-				<td><button>사용현황</button></td>
-				<td><button>대여기록</button></td>
+				<td>
+					<button onclick="fn_statusView(<%= result.getSwSeq() %>, '<%= swKeyItem.getLicKey() %>')">
+						사용현황
+					</button>
+				</td>
+				<td>
+					<button onclick="fn_histView(<%= result.getSwSeq() %>, '<%= swKeyItem.getLicKey() %>')">
+						대여기록
+					</button>
+				</td>
 			</tr>
 			<%
 			}
@@ -84,5 +104,6 @@
 	%>
 	</table>
 </div>
+<div class="modal fade" id="modal" role="dialog"></div>
 </body>
 </html>

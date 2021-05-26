@@ -3,35 +3,32 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <body>
-<div class="modal fade" id="update-modal" role="dialog">
-	<div class="modal-dialog">
-
-		<!-- Modal content-->
-		<div class="modal-content">
-			<form action="func/swKeyUpdate.jsp" method="POST">
-				<input name="swSeq" type="hidden" required>
-				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal">&times;</button>
-					<h4 id="modal-title" class="modal-title"></h4>
-				</div>
-				<div class="modal-body">
-					<table class="table">
-						<tr>
-							<td>라이선스 키</td>
-							<td><input class="form-control" name="licKey" id="licKey" type="text" required readonly></td>
-						</tr>
-						<tr>
-							<td>허용인원</td>
-							<td><input class="form-control" name="allowCnt" id="allowCnt" type="number" required></td>
-						</tr>					
-					</table>
-				</div>
-				<div class="modal-footer">
-					<button type="submit" class="btn btn-success">수정</button>
-					<button type="button" class="btn btn-default" data-dismiss="modal">취소</button>
-				</div>
-			</form>
-		</div>
+<div class="modal-dialog">
+	<!-- Modal content-->
+	<div class="modal-content">
+		<form id="update-form" action="func/swKeyUpdate.jsp" method="POST">
+			<input name="swSeq" type="hidden" required>
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
+				<h4 id="modal-title" class="modal-title">수정</h4>
+			</div>
+			<div class="modal-body">
+				<table class="table">
+					<tr>
+						<td>라이선스 키</td>
+						<td><input class="form-control" name="licKey" id="licKey" type="text" required readonly></td>
+					</tr>
+					<tr>
+						<td>허용인원</td>
+						<td><input class="form-control" name="allowCnt" id="allowCnt" type="number" required></td>
+					</tr>					
+				</table>
+			</div>
+			<div class="modal-footer">
+				<button type="submit" class="btn btn-success">수정</button>
+				<button type="button" class="btn btn-default" data-dismiss="modal">취소</button>
+			</div>
+		</form>
 	</div>
 </div>
 </body>

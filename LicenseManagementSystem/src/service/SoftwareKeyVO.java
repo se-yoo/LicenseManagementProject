@@ -7,6 +7,9 @@ public class SoftwareKeyVO {
 	private String rgstId = ""; // 등록자
 	private String rgstDt = ""; // 등록일
 	
+	private int srchStat = -1;
+	private String srchUserNm = "";
+	
 	public String getSwSeq() {
 		return swSeq;
 	}
@@ -36,5 +39,17 @@ public class SoftwareKeyVO {
 	}
 	public void setRgstDt(String rgstDt) {
 		this.rgstDt = rgstDt;
+	}
+	public int getSrchStat() {
+		return srchStat;
+	}
+	public void setSrchStat(int srchStat) {
+		this.srchStat = srchStat;
+	}
+	public String getSrchUserNm() {
+		return srchUserNm;
+	}
+	public void setSrchUserNm(String srchUserNm) {
+		this.srchUserNm = srchUserNm;
 	}
 }

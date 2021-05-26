@@ -30,9 +30,10 @@
 <script>
 $(document).ready(function(){
 	$("#create-btn").click(function(){
-		$("#create-modal #modal-title").text("등록");
-		$("#create-modal input[name=swSeq]").val(<%= result.getSwSeq() %>);
-		$("#create-modal").modal();
+		$("#modal").load("modal/swKeyCreateModal.jsp",function(){
+			$("#modal input[name=swSeq]").val(<%= result.getSwSeq() %>);
+			$("#modal").modal();
+		});	
 	});
 	
 	$("#update-btn").click(function(){
@@ -40,22 +41,30 @@ $(document).ready(function(){
 		
 		if(selectIdx!=undefined) {
 			var rowId = "#key-list-row-"+selectIdx;
-			$("#update-modal #modal-title").text("수정");
-			
-			$("#update-modal input[name=swSeq]").val(<%= result.getSwSeq() %>);
-			$("#update-modal #licKey").val($(rowId+" .licKey").text());
-			$("#update-modal #allowCnt").val($(rowId+" .allowCnt").text());
-			$("#update-modal").modal();
+			$("#modal").load("modal/swKeyUpdateModal.jsp", function(){
+				$("#modal input[name=swSeq]").val(<%= result.getSwSeq() %>);
+				$("#modal #licKey").val($(rowId+" .licKey").text());
+				$("#modal #allowCnt").val($(rowId+" .allowCnt").text());
+				$("#modal").modal();
+			});
+		}
+		else {
+			alert("수정할 항목을 선택해주세요.");
 		}
 	});
 	
 	$("#delete-btn").click(function(){
 		if(confirm("정말 삭제하시겠습니까?\n(사용현황, 대여기록 등 하위 데이터도 모두 삭제됩니다.)")) {
-			var swSeq = "<%= result.getSwSeq() %>";
 			var selectIdx = $("input[name=licKey]:checked").val();
-			var rowId = "#key-list-row-"+selectIdx;
 			
-			location.href="func/swKeyDelete.jsp?swSeq="+swSeq+"&licKey="+$(rowId+" .licKey").text();
+			if(selectIdx!=undefined) {
+				var swSeq = "<%= result.getSwSeq() %>";
+				var rowId = "#key-list-row-"+selectIdx;
+				
+				location.href="func/swKeyDelete.jsp?swSeq="+swSeq+"&licKey="+$(rowId+" .licKey").text();
+			} else {
+				alert("삭제할 항목을 선택해주세요.");
+			}
 		}
 	});
 });
@@ -84,8 +93,6 @@ $(document).ready(function(){
 			<td></td>
 			<td>라이선스 키</td>
 			<td>허용인원</td>
-			<td>사용현황</td>
-			<td>대여기록</td>
 		</tr>
 	<%
 		if(subResults.size()==0){
@@ -105,8 +112,6 @@ $(document).ready(function(){
 					</td>
 					<td class="licKey"><%= swKeyItem.getLicKey() %></td>
 					<td class="allowCnt"><%= swKeyItem.getAllowCnt() %></td>
-					<td><button>사용현황</button></td>
-					<td><button>대여기록</button></td>
 				</tr>
 				<%
 				idx++;
@@ -115,7 +120,6 @@ $(document).ready(function(){
 	%>
 	</table>
 </div>
-<jsp:include page="../modal/swKeyCreateModal.jsp" />
-<jsp:include page="../modal/swKeyUpdateModal.jsp" />
+<div class="modal fade" id="modal" role="dialog"></div>
 </body>
 </html>
