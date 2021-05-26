@@ -38,7 +38,7 @@ public class SQLMgt {
 		
         ResultSet rs = null;
 	    stmt = conn.createStatement();
-	    String sql = "SELECT * FROM software";
+	    String sql = "SELECT *, DATE(rgst_dt) FROM software";
 	    
 	    // °Ë»ö¾î
 	    if(!swVO.getSwNm().equals("")) {
@@ -58,7 +58,7 @@ public class SQLMgt {
 	    	newSw.setSwVer(rs.getString(4));
 	    	newSw.setSwEa(rs.getInt(5));
 	    	newSw.setRgstId(rs.getString(6));
-	    	newSw.setRgstDt(rs.getString(7));
+	    	newSw.setRgstDt(rs.getString(8));
 	    	
 	    	results.add(newSw);
 	    }
@@ -77,7 +77,7 @@ public class SQLMgt {
 		
         ResultSet rs = null;
 	    stmt = conn.createStatement();
-	    String sql = "SELECT * FROM software WHERE sw_seq = " + swVO.getSwSeq();
+	    String sql = "SELECT *, DATE(rgst_dt) FROM software WHERE sw_seq = " + swVO.getSwSeq();
 	    
 	    rs = stmt.executeQuery(sql);
 	     
@@ -88,7 +88,7 @@ public class SQLMgt {
 	    	result.setSwVer(rs.getString(4));
 	    	result.setSwEa(rs.getInt(5));
 	    	result.setRgstId(rs.getString(6));
-	    	result.setRgstDt(rs.getString(7));
+	    	result.setRgstDt(rs.getString(8));
 	    }
 	    
 		stmt.close();
@@ -137,6 +137,198 @@ public class SQLMgt {
 		String sql = "DELETE FROM software WHERE sw_seq = " + swVO.getSwSeq();
 		
 		stmt.execute(sql);
+	    
+		stmt.close();
+		conn.close();
+	}
+	
+	public List<SoftwareKeyVO> getSoftwareKeyList(SoftwareVO swVO) throws Exception {
+		List<SoftwareKeyVO> results = new ArrayList<>();
+		
+		Connection conn = SQLConn.getConnection();
+        Statement stmt = null;
+		
+        ResultSet rs = null;
+	    stmt = conn.createStatement();
+	    String sql = "SELECT *, DATE(rgst_dt) FROM software_key WHERE sw_seq = " + swVO.getSwSeq();
+	    
+	    rs = stmt.executeQuery(sql);
+	     
+	    while(rs.next()){
+	    	SoftwareKeyVO newSwKey = new SoftwareKeyVO();
+	    	newSwKey.setSwSeq(rs.getString(1));
+	    	newSwKey.setLicKey(rs.getString(2));
+	    	newSwKey.setAllowCnt(rs.getInt(3));
+	    	newSwKey.setRgstId(rs.getString(4));
+	    	newSwKey.setRgstDt(rs.getString(6));
+	    	
+	    	results.add(newSwKey);
+	    }
+	    
+		stmt.close();
+		conn.close();
+         
+		return results;
+	}
+	
+	public SoftwareKeyVO getSoftwareKey(SoftwareKeyVO swKeyVO) throws Exception {
+		SoftwareKeyVO result = new SoftwareKeyVO();
+		
+		Connection conn = SQLConn.getConnection();
+        Statement stmt = null;
+		
+        ResultSet rs = null;
+	    stmt = conn.createStatement();
+	    String sql = "SELECT *, DATE(rgst_dt) FROM software_key WHERE sw_seq = " + swKeyVO.getSwSeq()
+	    		+" AND lic_key = '"+swKeyVO.getLicKey()+"'";
+	    
+	    rs = stmt.executeQuery(sql);
+	     
+	    if(rs.next()){
+	    	result.setSwSeq(rs.getString(1));
+	    	result.setLicKey(rs.getString(2));
+	    	result.setAllowCnt(rs.getInt(3));
+	    	result.setRgstId(rs.getString(4));
+	    	result.setRgstDt(rs.getString(6));
+	    }
+	    
+		stmt.close();
+		conn.close();
+         
+		return result;
+	}
+	
+	public void createSoftwareKey(SoftwareKeyVO swKeyVO) throws Exception {
+		Connection conn = SQLConn.getConnection();
+		
+		Statement stmt = null;
+	    stmt = conn.createStatement();
+		
+		String sql = "INSERT INTO software_key (sw_seq, lic_key, allow_cnt, rgst_id, rgst_dt) VALUES ("
+				+swKeyVO.getSwSeq()+", '"+swKeyVO.getLicKey()+"', "+swKeyVO.getAllowCnt()+", '"
+				+swKeyVO.getRgstId()+"', NOW());";
+		
+		stmt.executeUpdate(sql);
+	}
+	
+	public void updateSoftwareKey(SoftwareKeyVO swKeyVO) throws Exception {
+		Connection conn = SQLConn.getConnection();
+		
+		Statement stmt = null;
+	    stmt = conn.createStatement();
+		
+		String sql = "UPDATE software_key SET allow_cnt = " + swKeyVO.getAllowCnt()
+				+ " WHERE sw_seq = " + swKeyVO.getSwSeq()
+				+ " AND lic_key = '" + swKeyVO.getLicKey() + "'";
+		
+		stmt.executeUpdate(sql);
+	    
+		stmt.close();
+		conn.close();
+	}
+	
+	public void deleteSoftwareKey(SoftwareKeyVO swKeyVO) throws Exception {
+		Connection conn = SQLConn.getConnection();
+		
+		Statement stmt = null;
+	    stmt = conn.createStatement();
+		
+		String sql = "DELETE FROM software_key WHERE sw_seq = " + swKeyVO.getSwSeq()
+			+ " AND lic_key = '" + swKeyVO.getLicKey() + "'";
+		
+		stmt.execute(sql);
+	    
+		stmt.close();
+		conn.close();
+	}
+	
+	public List<SoftwareKeyHistVO> getSoftwareKeyHistList(SoftwareKeyVO swKeyVO) throws Exception {
+		List<SoftwareKeyHistVO> results = new ArrayList<>();
+		
+		Connection conn = SQLConn.getConnection();
+        Statement stmt = null;
+		
+        ResultSet rs = null;
+	    stmt = conn.createStatement();
+	    String sql = "SELECT *, DATE(rgst_dt) FROM software_key_hist WHERE sw_seq = " + swKeyVO.getSwSeq()
+	    		+ " AND lic_key = '" + swKeyVO.getLicKey() + "'";
+	    
+	    rs = stmt.executeQuery(sql);
+	     
+	    while(rs.next()){
+	    	SoftwareKeyHistVO newSwKeyHist = new SoftwareKeyHistVO();
+	    	newSwKeyHist.setHistSeq(rs.getString(1));
+	    	newSwKeyHist.setSwSeq(rs.getString(2));
+	    	newSwKeyHist.setLicKey(rs.getString(3));
+	    	newSwKeyHist.setUserNm(rs.getString(4));
+	    	newSwKeyHist.setUseStrtDt(rs.getString(5));
+	    	newSwKeyHist.setUseEndDt(rs.getString(6));
+	    	newSwKeyHist.setStatCd(rs.getInt(7));
+	    	newSwKeyHist.setRgstId(rs.getString(8));
+	    	newSwKeyHist.setRgstDt(rs.getString(10));
+	    	
+	    	results.add(newSwKeyHist);
+	    }
+	    
+		stmt.close();
+		conn.close();
+         
+		return results;
+	}
+	
+	public SoftwareKeyHistVO getSoftwareKeyHist(SoftwareKeyHistVO swKeyHistVO) throws Exception {
+		SoftwareKeyHistVO result = new SoftwareKeyHistVO();
+		
+		Connection conn = SQLConn.getConnection();
+        Statement stmt = null;
+		
+        ResultSet rs = null;
+	    stmt = conn.createStatement();
+	    String sql = "SELECT *, DATE(rgst_dt) FROM software_key_history WHERE hist_seq = " + swKeyHistVO.getHistSeq();
+	    
+	    rs = stmt.executeQuery(sql);
+	     
+	    if(rs.next()){
+	    	result.setHistSeq(rs.getString(1));
+	    	result.setSwSeq(rs.getString(2));
+	    	result.setLicKey(rs.getString(3));
+	    	result.setUserNm(rs.getString(4));
+	    	result.setUseStrtDt(rs.getString(5));
+	    	result.setUseEndDt(rs.getString(6));
+	    	result.setStatCd(rs.getInt(7));
+	    	result.setRgstId(rs.getString(8));
+	    	result.setRgstDt(rs.getString(10));
+	    }
+	    
+		stmt.close();
+		conn.close();
+         
+		return result;
+	}
+	
+	public void createSoftwareKeyHist(SoftwareKeyHistVO swKeyHistVO) throws Exception {
+		Connection conn = SQLConn.getConnection();
+		
+		Statement stmt = null;
+	    stmt = conn.createStatement();
+		
+		String sql = "INSERT INTO software_key_history (sw_seq, lic_key, user_nm, use_strt_dt, stat_cd, rgst_id, rgst_dt) VALUES ("
+				+swKeyHistVO.getSwSeq()+", '"+swKeyHistVO.getLicKey()+"', '"+swKeyHistVO.getUserNm()+"', "
+				+"NOW(), 0, '" + swKeyHistVO.getRgstId()+"', NOW());";
+		
+		stmt.executeUpdate(sql);
+	}
+	
+	public void updateSoftwareKeyHist(SoftwareKeyHistVO swKeyHistVO) throws Exception {
+		Connection conn = SQLConn.getConnection();
+		
+		Statement stmt = null;
+	    stmt = conn.createStatement();
+		
+		String sql = "UPDATE software_key_history SET stat_cd = 1, use_end_dt = NOW()"
+				+ " WHERE hist_seq = " + swKeyHistVO.getHistSeq();
+		
+		stmt.executeUpdate(sql);
 	    
 		stmt.close();
 		conn.close();
