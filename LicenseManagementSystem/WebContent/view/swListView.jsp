@@ -62,7 +62,11 @@
 		for(SoftwareVO swItem : result) {
 		%>
 		<tr>
-			<td><%= swItem.getSwNm() %></td>
+			<td>
+				<a href="retrieve.jsp?swSeq=<%= swItem.getSwSeq() %>">
+					<%= swItem.getSwNm() %>
+				</a>
+			</td>
 			<td><%= swItem.getMnfNm() %></td>
 			<td><%= swItem.getSwVer() %></td>
 			<td><%= swItem.getSwEa() %></td>
@@ -72,7 +76,7 @@
 	}
 %>
 </table>
-<a href="swCreateForm.jsp">
+<a href="create.jsp">
 	<button>µî·Ï</button>
 </a>
 </body>

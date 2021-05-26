@@ -7,7 +7,7 @@
 	} else {
 %>
 <jsp:forward page="template.jsp">
-	<jsp:param name="CONTENTPAGE" value="view/swListView.jsp" />
+	<jsp:param name="CONTENTPAGE" value="view/swRetrieveView.jsp" />
 </jsp:forward>
 <%
 	}

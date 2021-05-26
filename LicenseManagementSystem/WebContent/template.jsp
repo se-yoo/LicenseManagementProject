@@ -10,7 +10,9 @@
 <%
 	String contentpage=request.getParameter("CONTENTPAGE");
 %>
-<a href="main.jsp">라이선스 관리 시스템</a>
+<div>
+	<a href="main.jsp">라이선스 관리 시스템</a>
+</div>
 <jsp:include page="<%= contentpage %>"></jsp:include>
 </body>
 </html>

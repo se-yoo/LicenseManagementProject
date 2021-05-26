@@ -16,10 +16,10 @@
 		
 		if(user.getUserId().equals("")){
 			out.println("<script>alert('아이디 혹은 비밀번호를 확인해주세요.')</script>");
-			%><meta http-equiv='refresh' content='0; url=loginPage.jsp'><%
+			%><meta http-equiv='refresh' content='0; url=../login.jsp'><%
 		} else {
 			session.setAttribute("user_id", user.getUserId());
-			%><meta http-equiv='refresh' content='0; url=main.jsp'><%
+			%><meta http-equiv='refresh' content='0; url=../main.jsp'><%
 		}
 	}catch(Exception e){
 		out.println(e.toString());

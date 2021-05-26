@@ -23,6 +23,9 @@ public class SQLMgt {
 	    	user.setUserId(rs.getString("user_id"));
 	    	user.setName(rs.getString("name"));
 	    }
+	    
+		stmt.close();
+		conn.close();
          
 		return user;
 	}
@@ -59,8 +62,39 @@ public class SQLMgt {
 	    	
 	    	results.add(newSw);
 	    }
+	    
+		stmt.close();
+		conn.close();
          
 		return results;
+	}
+	
+	public SoftwareVO getSoftware(SoftwareVO swVO) throws Exception {
+		SoftwareVO result = new SoftwareVO();
+		
+		Connection conn = SQLConn.getConnection();
+        Statement stmt = null;
+		
+        ResultSet rs = null;
+	    stmt = conn.createStatement();
+	    String sql = "SELECT * FROM software WHERE sw_seq = " + swVO.getSwSeq();
+	    
+	    rs = stmt.executeQuery(sql);
+	     
+	    if(rs.next()){
+	    	result.setSwSeq(rs.getString(1));
+	    	result.setSwNm(rs.getString(2));
+	    	result.setMnfNm(rs.getString(3));
+	    	result.setSwVer(rs.getString(4));
+	    	result.setSwEa(rs.getInt(5));
+	    	result.setRgstId(rs.getString(6));
+	    	result.setRgstDt(rs.getString(7));
+	    }
+	    
+		stmt.close();
+		conn.close();
+         
+		return result;
 	}
 	
 	public void createSoftware(SoftwareVO swVO) throws Exception {
@@ -74,5 +108,37 @@ public class SQLMgt {
 				+swVO.getRgstId()+"', NOW());";
 		
 		stmt.executeUpdate(sql);
+	}
+	
+	public void updateSoftware(SoftwareVO swVO) throws Exception {
+		Connection conn = SQLConn.getConnection();
+		
+		Statement stmt = null;
+	    stmt = conn.createStatement();
+		
+		String sql = "UPDATE software SET sw_nm = '" + swVO.getSwNm() + "', "
+				+ "mnf_nm = '" + swVO.getMnfNm() + "', "
+				+ "sw_ver = '" + swVO.getSwVer() + "', "
+				+ "sw_ea = " + swVO.getSwEa()
+				+ " WHERE sw_seq = " + swVO.getSwSeq();
+		
+		stmt.executeUpdate(sql);
+	    
+		stmt.close();
+		conn.close();
+	}
+	
+	public void deleteSoftware(SoftwareVO swVO) throws Exception {
+		Connection conn = SQLConn.getConnection();
+		
+		Statement stmt = null;
+	    stmt = conn.createStatement();
+		
+		String sql = "DELETE FROM software WHERE sw_seq = " + swVO.getSwSeq();
+		
+		stmt.execute(sql);
+	    
+		stmt.close();
+		conn.close();
 	}
 }

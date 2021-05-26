@@ -14,7 +14,7 @@
 	</div>
 	<br>
 	<div class="login">
-		<form action="signIn.jsp" method="POST">
+		<form action="func/signIn.jsp" method="POST">
 			<input type="text" name="user_id" required><br>
 			<input type="password" name="user_pw" required><br>
 			<input type="submit" value="Login">
