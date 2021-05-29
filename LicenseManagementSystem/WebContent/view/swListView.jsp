@@ -11,8 +11,8 @@
 </head>
 <body>
 <%
-	String srchCont = request.getParameter("srch_cont");
-	String srchDiv = request.getParameter("srch_div");
+	String srchCont = request.getParameter("srchCont");
+	String srchDiv = request.getParameter("srchDiv");
 	List<SoftwareVO> result = new ArrayList<>();
 	
 	try{
@@ -36,11 +36,11 @@
 	}
 %>
 <form action="main.jsp" method="POST">
-	<select id="srch_div" name="srch_div">
+	<select id="srchDiv" name="srchDiv">
 		<option value="0" <%= srchDiv.equals("0")? "selected" : ""%>>SW명</option>
 		<option value="1" <%= srchDiv.equals("1")? "selected" : ""%>>제조사</option>
 	</select>
-	<input id="srch_cont" type="text" name="srch_cont" value="<%=srchCont%>">
+	<input id="srchCont" type="text" name="srchCont" value="<%=srchCont%>">
 	<input type="submit" value="검색">
 </form>
 <table>

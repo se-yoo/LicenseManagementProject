@@ -22,8 +22,11 @@ function fn_statusView(swSeq,licKey) {
 	});	
 }
 
-function fn_histView(swSeq,licKey) {
-	$("#modal").load("modal/swKeyHistListAllModal.jsp?swSeq="+swSeq+"&licKey="+licKey,function(){
+function fn_histView(swSeq,licKey,srchUserNm) {
+	var url = "modal/swKeyHistListAllModal.jsp?swSeq="+swSeq+"&licKey="+licKey;
+	if(srchUserNm) url += "&srchUserNm="+encodeURIComponent(srchUserNm);
+	
+	$("#modal").load(url,function(){
 		$("#modal").modal();
 	});	
 }

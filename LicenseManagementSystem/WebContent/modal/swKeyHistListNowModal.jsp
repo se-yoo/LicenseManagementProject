@@ -69,12 +69,14 @@
 			<h4 id="modal-title" class="modal-title">사용현황</h4>
 		</div>
 		<div class="modal-body">
-			<button onclick="addItem()">
-				추가
-			</button>
-			<button onclick="setStatus()">
-				사용 완료
-			</button>
+			<div>
+				<button onclick="addItem()">
+					추가
+				</button>
+				<button onclick="setStatus()">
+					사용 완료
+				</button>
+			</div>
 			<table class="table">
 				<tr>
 					<th></th>
@@ -102,10 +104,6 @@
 					}
 				%>				
 			</table>
-		</div>
-		<div class="modal-footer">
-			<button type="submit" class="btn btn-success">수정</button>
-			<button type="button" class="btn btn-default" data-dismiss="modal">취소</button>
 		</div>
 	</div>
 </div>

@@ -7,10 +7,10 @@
     pageEncoding="EUC-KR"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
-<body>
 <%
 	String swSeq = request.getParameter("swSeq");
 	String licKey = request.getParameter("licKey");
+	String srchUserNm = request.getParameter("srchUserNm");
 	List<SoftwareKeyHistVO> result = new ArrayList<>();
 	
 	try{
@@ -21,11 +21,33 @@
 		softwareKey.setSwSeq(swSeq);
 		softwareKey.setLicKey(licKey);
 		
+		if(srchUserNm!=null && !srchUserNm.equals("")) {
+			softwareKey.setSrchUserNm(srchUserNm);
+		}
+		else {
+			srchUserNm = "";
+		}
+		
 		result = sqlMgt.getSoftwareKeyHistList(softwareKey);
 	}catch(Exception e){
 		out.println(e.toString());
 	}
 %>
+<script>
+	function search(){
+		var srchUserNm = $("#srchUserNm").val();
+		fn_histView(<%=swSeq%>,'<%=licKey%>', srchUserNm);
+	}
+	
+	$(document).ready(function(){
+		$("#srchUserNm").keyup(function(e){
+			if(e.keyCode==13){
+				search();
+			}
+		});
+	});
+</script>
+<body>
 <div class="modal-dialog">
 	<!-- Modal content-->
 	<div class="modal-content">
@@ -34,6 +56,10 @@
 			<h4 id="modal-title" class="modal-title">대여기록</h4>
 		</div>
 		<div class="modal-body">
+			<div>
+				<input id="srchUserNm" type="text" name="srchUserNm" value="<%=srchUserNm%>">
+				<input type="button" value="검색" onclick="search()">
+			</div>
 			<table class="table">
 				<tr>
 					<th>사용자</th>
@@ -61,10 +87,6 @@
 					}
 				%>				
 			</table>
-		</div>
-		<div class="modal-footer">
-			<button type="submit" class="btn btn-success">수정</button>
-			<button type="button" class="btn btn-default" data-dismiss="modal">취소</button>
 		</div>
 	</div>
 </div>
