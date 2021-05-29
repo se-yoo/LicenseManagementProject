@@ -44,7 +44,7 @@ public class SQLMgt {
 	    if(!swVO.getSwNm().equals("")) {
 	    	sql += " WHERE sw_nm LIKE '%"+swVO.getSwNm()+"%'";
 	    }
-	    else if(!swVO.getMnfNm().equals("")) {
+	    if(!swVO.getMnfNm().equals("")) {
 	    	sql += " WHERE mnf_nm LIKE '%"+swVO.getMnfNm()+"%'";
 	    }
 	    

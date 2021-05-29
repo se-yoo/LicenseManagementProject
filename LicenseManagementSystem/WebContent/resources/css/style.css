@@ -1,0 +1,69 @@
+* {
+	letter-spacing: -0.12em;
+}
+
+html, body {
+	width: 100%;
+	height: 100%;
+}
+	
+body{
+	display: flex;
+    align-items: center;
+    padding-top: 40px;
+    padding-bottom: 40px;
+}
+
+table {
+	font-size: 16px;
+}
+
+table tbody td {
+	padding-top: 1em !important;
+	padding-bottom: 1em !important;
+}
+
+a:link, a:hover, a:active, a:visited {
+	text-decoration: none;
+}
+
+#login-form {
+	width: 100%;
+    max-width: 420px;
+    padding: 4em 3em;
+    margin: auto;
+    border-radius: 1em;
+    background-color: white;
+}
+
+.logo-img{
+	width: 80px;
+}
+
+.title-text {
+	font-size: 2.5em;
+	margin-left: 1em;
+	cursor: pointer;
+	vertical-align: middle;
+	background: linear-gradient(#45a1e4, #6078EA);
+	  -webkit-background-clip: text;
+	  -webkit-text-fill-color: transparent;
+}
+
+#login-form input[type=password] {
+	margin-top: -1px;
+}
+
+.bg-blue {
+	background: linear-gradient(#17EAD9, #6078EA);
+}
+
+.btn-blue {
+	background-color: #45a1e4;
+	color: white;
+	border-color: #45a1e4;
+}
+
+.search-form {
+	width: 100%;
+}

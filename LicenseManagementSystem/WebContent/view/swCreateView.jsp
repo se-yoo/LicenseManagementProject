@@ -6,15 +6,35 @@
 <meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
 </head>
 <body>
-<form action="func/swCreate.jsp" method="POST">
-	SW명: <input type="text" name="swNm" required><br>
-	제조사: <input type="text" name="mnfNm" required><br>
-	버전: <input type="text" name="swVer" required><br>
-	수량: <input type="number" name="swEa" ><br>
-	<input type="submit" value="등록">
+<form class="form-horizontal" action="func/swCreate.jsp" method="POST">
+	<div class="form-group">
+	  <label for="swNm" class="col-sm-1 control-label">SW명</label>
+	  <div class="col-sm-5">
+	    <input type="text" class="form-control" id="swNm" name="swNm" required>
+	  </div>
+	  <label for="mnfNm" class="col-sm-1 control-label">제조사</label>
+	  <div class="col-sm-5">
+	    <input type="text" class="form-control" id="mnfNm" name="mnfNm" required>
+	  </div>
+	</div>
+	<div class="form-group">
+	  <label for="swVer" class="col-sm-1 control-label">버전</label>
+	  <div class="col-sm-5">
+	    <input type="text" class="form-control" id="swVer" name="swVer" required>
+	  </div>
+	  <label for="swEa" class="col-sm-1 control-label">수량</label>
+	  <div class="col-sm-5">
+	    <input type="text" class="form-control" id="swEa" name="swEa" required>
+	  </div>
+	</div>
+	<div class="form-group text-right">
+	    <button type="submit" class="btn btn-primary btn-lg btn-blue mr-2">등록</button>
+	    <div class="mr-4" style="display: inline-block">
+			<a href="main.jsp">
+				<div class="btn btn-default btn-lg">취소</div>
+			</a>
+		</div>
+  </div>
 </form>
-<a href="main.jsp">
-	<button>취소</button>
-</a>
 </body>
 </html>

@@ -35,49 +35,69 @@
 		out.println(e.toString());
 	}
 %>
-<form action="main.jsp" method="POST">
-	<select id="srchDiv" name="srchDiv">
-		<option value="0" <%= srchDiv.equals("0")? "selected" : ""%>>SW명</option>
-		<option value="1" <%= srchDiv.equals("1")? "selected" : ""%>>제조사</option>
-	</select>
-	<input id="srchCont" type="text" name="srchCont" value="<%=srchCont%>">
-	<input type="submit" value="검색">
-</form>
-<table>
-	<tr>
-		<td>SW명</td>
-		<td>제조사</td>
-		<td>버전</td>
-		<td>수량</td>
-	</tr>
-<%
-	if(result.size()==0){
-		%>
-		<tr>
-			<td colspan="4">데이터가 없습니다.</td>
-		</tr>
-		<%
-	}
-	else {
-		for(SoftwareVO swItem : result) {
-		%>
-		<tr>
-			<td>
-				<a href="retrieve.jsp?swSeq=<%= swItem.getSwSeq() %>">
-					<%= swItem.getSwNm() %>
+<div class="pb-3 pt-3">
+	<form action="main.jsp" method="POST">
+		<div class="form-group row">
+			<div class="col-2 pr-1">
+				<a href="create.jsp">
+					<div class="btn btn-default btn-lg">
+						등록 <span class="glyphicon glyphicon-pencil ml-1" aria-hidden="true"></span>
+					</div>
 				</a>
-			</td>
-			<td><%= swItem.getMnfNm() %></td>
-			<td><%= swItem.getSwVer() %></td>
-			<td><%= swItem.getSwEa() %></td>
-		</tr>
+			</div>
+			<div class="col-2 col-md-offset-1 pr-1">
+				<select id="srchDiv" name="srchDiv" class="form-control input-lg" size="1">
+					<option value="0" <%= srchDiv.equals("0")? "selected" : ""%>>SW명</option>
+					<option value="1" <%= srchDiv.equals("1")? "selected" : ""%>>제조사</option>
+				</select>
+			</div>
+			<div class="col-6">
+				<input id="srchCont" class="form-control input-lg" type="text" name="srchCont" value="<%=srchCont%>">
+			</div>
+			<div class="col-1 pl-1">
+				<input type="submit" value="검색" class="btn btn-primary btn-lg btn-block btn-blue">
+			</div>
+		</div>
+	</form>
+</div>
+<div class="pb-3 pt-3">
+	<table class="table table-hover">
+		<thead>
+			<tr>
+				<th>SW명</th>
+				<th>제조사</th>
+				<th>버전</th>
+				<th>수량</th>
+			</tr>
+		</thead>
+		<tbody>
 		<%
-		}
-	}
-%>
-</table>
-<a href="create.jsp">
-	<button>등록</button>
-</a>
+			if(result.size()==0){
+				%>
+				<tr>
+					<td colspan="4">데이터가 없습니다.</td>
+				</tr>
+				<%
+			}
+			else {
+				for(SoftwareVO swItem : result) {
+				%>
+				<tr>
+					<td>
+						<a href="retrieve.jsp?swSeq=<%= swItem.getSwSeq() %>">
+							<%= swItem.getSwNm() %>
+						</a>
+					</td>
+					<td><%= swItem.getMnfNm() %></td>
+					<td><%= swItem.getSwVer() %></td>
+					<td><%= swItem.getSwEa() %></td>
+				</tr>
+				<%
+				}
+			}
+		%>
+		</tbody>
+	</table>
+</div>
 </body>
 </html>
