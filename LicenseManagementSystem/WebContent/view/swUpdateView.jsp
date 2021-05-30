@@ -12,7 +12,6 @@
 <%
 	String swSeq = request.getParameter("swSeq");
 	SoftwareVO result = new SoftwareVO();
-	List<SoftwareKeyVO> subResults = new ArrayList<>();
 	
 	try{
 		
@@ -22,53 +21,10 @@
 		software.setSwSeq(swSeq);
 		
 		result = sqlMgt.getSoftware(software);
-		subResults = sqlMgt.getSoftwareKeyList(software);
 	}catch(Exception e){
 		out.println(e.toString());
 	}
 %>
-<script>
-$(document).ready(function(){
-	$("#create-btn").click(function(){
-		$("#modal").load("modal/swKeyCreateModal.jsp",function(){
-			$("#modal input[name=swSeq]").val(<%= result.getSwSeq() %>);
-			$("#modal").modal();
-		});	
-	});
-	
-	$("#update-btn").click(function(){
-		var selectIdx = $("input[name=licKey]:checked").val();
-		
-		if(selectIdx!=undefined) {
-			var rowId = "#key-list-row-"+selectIdx;
-			$("#modal").load("modal/swKeyUpdateModal.jsp", function(){
-				$("#modal input[name=swSeq]").val(<%= result.getSwSeq() %>);
-				$("#modal #licKey").val($(rowId+" .licKey").text());
-				$("#modal #allowCnt").val($(rowId+" .allowCnt").text());
-				$("#modal").modal();
-			});
-		}
-		else {
-			alert("수정할 항목을 선택해주세요.");
-		}
-	});
-	
-	$("#delete-btn").click(function(){
-		if(confirm("정말 삭제하시겠습니까?\n(사용현황, 대여기록 등 하위 데이터도 모두 삭제됩니다.)")) {
-			var selectIdx = $("input[name=licKey]:checked").val();
-			
-			if(selectIdx!=undefined) {
-				var swSeq = "<%= result.getSwSeq() %>";
-				var rowId = "#key-list-row-"+selectIdx;
-				
-				location.href="func/swKeyDelete.jsp?swSeq="+swSeq+"&licKey="+$(rowId+" .licKey").text();
-			} else {
-				alert("삭제할 항목을 선택해주세요.");
-			}
-		}
-	});
-});
-</script>
 </head>
 <body>
 <div class="pb-3 fs-16">
@@ -100,48 +56,5 @@ $(document).ready(function(){
 	  	</div>
 	</form>
 </div>
-<div class="pb-3 pt-3">
-	<div class="form-group text-right">
-		<button id="create-btn" class="btn btn-primary btn-blue mr-2">등록</button>
-		<button id="update-btn" class="btn btn-primary btn-blue mr-2">수정</button>
-		<button id="delete-btn" class="btn btn-default mr-4">삭제</button>
-	</div>
-	<table class="table table-hover">
-		<thead>
-			<tr>
-				<th></th>
-				<th>라이선스 키</th>
-				<th>허용인원</th>
-			</tr>
-		</thead>
-		<tbody>
-		<%
-			if(subResults.size()==0){
-				%>
-				<tr>
-					<td colspan="4">등록된 라이선스 키가 없습니다.</td>
-				</tr>
-				<%
-			}
-			else {
-				int idx = 0;
-				for(SoftwareKeyVO swKeyItem : subResults) {
-					%>
-					<tr id="key-list-row-<%= idx %>">
-						<td>
-							<input type="radio" name="licKey" value="<%= idx %>">
-						</td>
-						<td class="licKey"><%= swKeyItem.getLicKey() %></td>
-						<td class="allowCnt"><%= swKeyItem.getAllowCnt() %></td>
-					</tr>
-					<%
-					idx++;
-				}
-			}
-		%>
-		</tbody>
-	</table>
-</div>
-<div class="modal fade" id="modal" role="dialog"></div>
 </body>
 </html>

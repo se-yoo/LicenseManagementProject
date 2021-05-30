@@ -16,7 +16,7 @@
 		
 		SQLMgt sqlMgt = new SQLMgt();
 		sqlMgt.updateSoftwareKey(swKeyVO);
-		%><meta http-equiv='refresh' content='0; url=../update.jsp?swSeq=<%=swKeyVO.getSwSeq()%>'><%
+		%><meta http-equiv='refresh' content='0; url=../licUpdate.jsp?swSeq=<%=swKeyVO.getSwSeq()%>'><%
 	}catch(Exception e){
 		out.println(e.toString());
 	}

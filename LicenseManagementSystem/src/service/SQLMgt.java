@@ -343,4 +343,106 @@ public class SQLMgt {
 		stmt.close();
 		conn.close();
 	}
+	
+	public List<MemoVO> getMemoList(MemoVO mVO) throws Exception {
+		List<MemoVO> results = new ArrayList<>();
+		
+		Connection conn = SQLConn.getConnection();
+        Statement stmt = null;
+		
+        ResultSet rs = null;
+	    stmt = conn.createStatement();
+	    String sql = "SELECT *, DATE(rgst_dt) FROM memo";
+	    
+	    // °Ë»ö¾î
+	    if(!mVO.getMemoTitle().equals("")) {
+	    	sql += " WHERE memo_title LIKE '%"+mVO.getMemoTitle()+"%'";
+	    }
+	    
+	    rs = stmt.executeQuery(sql);
+	     
+	    while(rs.next()){
+	    	MemoVO newMemo = new MemoVO();
+	    	newMemo.setMemoSeq(rs.getString(1));
+	    	newMemo.setMemoTitle(rs.getString(2));
+	    	newMemo.setMemoCont(rs.getString(3));
+	    	newMemo.setRgstId(rs.getString(4));
+	    	newMemo.setRgstDt(rs.getString(6));
+	    	
+	    	results.add(newMemo);
+	    }
+	    
+		stmt.close();
+		conn.close();
+         
+		return results;
+	}
+	
+	public MemoVO getMemo(MemoVO mVO) throws Exception {
+		MemoVO result = new MemoVO();
+		
+		Connection conn = SQLConn.getConnection();
+        Statement stmt = null;
+		
+        ResultSet rs = null;
+	    stmt = conn.createStatement();
+	    String sql = "SELECT *, DATE(rgst_dt) FROM memo WHERE memo_seq = " + mVO.getMemoSeq();
+	    
+	    rs = stmt.executeQuery(sql);
+	     
+	    if(rs.next()){
+	    	result.setMemoSeq(rs.getString(1));
+	    	result.setMemoTitle(rs.getString(2));
+	    	result.setMemoCont(rs.getString(3));
+	    	result.setRgstId(rs.getString(4));
+	    	result.setRgstDt(rs.getString(6));
+	    }
+	    
+		stmt.close();
+		conn.close();
+         
+		return result;
+	}
+	
+	public void createMemo(MemoVO mVO) throws Exception {
+		Connection conn = SQLConn.getConnection();
+		
+		Statement stmt = null;
+	    stmt = conn.createStatement();
+		
+		String sql = "INSERT INTO memo (memo_title, memo_cont, rgst_id, rgst_dt) VALUES ('"
+				+mVO.getMemoTitle()+"', '"+mVO.getMemoCont()+"', '"+mVO.getRgstId()+"', NOW());";
+		
+		stmt.executeUpdate(sql);
+	}
+	
+	public void updateMemo(MemoVO mVO) throws Exception {
+		Connection conn = SQLConn.getConnection();
+		
+		Statement stmt = null;
+	    stmt = conn.createStatement();
+		
+		String sql = "UPDATE memo SET memo_title = '" + mVO.getMemoTitle() + "', "
+				+ "memo_cont = '" + mVO.getMemoCont() +"'"
+				+ " WHERE memo_seq = " + mVO.getMemoSeq();
+		
+		stmt.executeUpdate(sql);
+	    
+		stmt.close();
+		conn.close();
+	}
+	
+	public void deleteMemo(MemoVO mVO) throws Exception {
+		Connection conn = SQLConn.getConnection();
+		
+		Statement stmt = null;
+	    stmt = conn.createStatement();
+		
+		String sql = "DELETE FROM memo WHERE memo_seq = " + mVO.getMemoSeq();
+		
+		stmt.execute(sql);
+	    
+		stmt.close();
+		conn.close();
+	}
 }

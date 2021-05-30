@@ -16,6 +16,21 @@
 	}
 </style>
 </head>
+<script>
+	$(document).ready(function(){
+		var url=location.href;
+		
+		if(url.includes("lic")) {
+			$("#licMgt").addClass("active");
+		}
+		else if(url.includes("memo")) {
+			$("#memoMgt").addClass("active");
+		}
+		else {
+			$("#swMgt").addClass("active");
+		}
+	});
+</script>
 <body>
 <%
 	String contentpage=request.getParameter("CONTENTPAGE");
@@ -29,6 +44,13 @@
 			<img src="resources/desktop.png" class="logo-img mb-4">
 			<label class="title-text">라이선스 관리 시스템</label>
 		</a>
+	</div>
+	<div class="pb-5" style="width: 100%">
+		<ul class="nav nav-tabs fs-16">
+		  <li role="presentation" id="swMgt"><a href="main.jsp">SW관리</a></li>
+		  <li role="presentation" id="licMgt"><a href="licList.jsp">라이선스 관리</a></li>
+		  <li role="presentation" id="memoMgt"><a href="memoList.jsp">메모</a></li>
+		</ul>
 	</div>
 	<jsp:include page="<%= contentpage %>"></jsp:include>
 </div>
