@@ -21,7 +21,7 @@
 	String contentpage=request.getParameter("CONTENTPAGE");
 %>
 <div class="container">
-	<div class="header text-center mb-4">
+	<div class="header text-center mb-4 pb-4">
 		<div class="text-right">
 			<a href="func/logout.jsp">·Î±×¾Æ¿ô</a>
 		</div>

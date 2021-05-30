@@ -51,60 +51,86 @@ function fn_histView(swSeq,licKey,srchUserNm) {
 		out.println(e.toString());
 	}
 %>
-<div>
-	SW명: <%= result.getSwNm() %><br>
-	제조사: <%= result.getMnfNm() %><br>
-	버전: <%= result.getSwVer() %><br>
-	수량: <%= result.getSwEa() %><br>
-	등록자: <%= result.getRgstId() %><br>
-	등록일: <%= result.getRgstDt() %><br>
-	<a href="update.jsp?swSeq=<%= result.getSwSeq() %>">
-		<button>수정</button>
-	</a>
-	
-	<button onclick="fn_delete(<%= result.getSwSeq() %>)">삭제</button>
-	
-	<a href="main.jsp">
-		<button>목록</button>
-	</a>
+<div class="form-horizontal fs-16 pb-3">
+	<div class="form-group">
+	  <label for="swNm" class="col-sm-1 control-label">SW명</label>
+	  <div class="col-sm-5">
+	    <p class="form-control-static"><%= result.getSwNm() %></p>
+	  </div>
+	  <label for="mnfNm" class="col-sm-1 control-label">제조사</label>
+	  <div class="col-sm-5">
+	    <p class="form-control-static"><%= result.getMnfNm() %></p>
+	  </div>
+	</div>
+	<div class="form-group">
+	  <label for="swNm" class="col-sm-1 control-label">버전</label>
+	  <div class="col-sm-5">
+	    <p class="form-control-static"><%= result.getSwVer() %></p>
+	  </div>
+	  <label for="mnfNm" class="col-sm-1 control-label">수량</label>
+	  <div class="col-sm-5">
+	    <p class="form-control-static"><%= result.getSwEa() %></p>
+	  </div>
+	</div>
+	<div class="form-group">
+	  <label for="swNm" class="col-sm-1 control-label">등록자</label>
+	  <div class="col-sm-5">
+	    <p class="form-control-static"><%= result.getRgstId() %></p>
+	  </div>
+	  <label for="mnfNm" class="col-sm-1 control-label">등록일</label>
+	  <div class="col-sm-5">
+	    <p class="form-control-static"><%= result.getRgstDt() %></p>
+	  </div>
+	</div>
+	<div class="form-group text-right">
+		<a href="update.jsp?swSeq=<%= result.getSwSeq() %>" class="btn btn-primary btn-lg btn-blue mr-2">수정</a>
+		<button onclick="fn_delete(<%= result.getSwSeq() %>)" class="btn btn-primary btn-lg btn-blue mr-2">삭제</button>
+		<a href="main.jsp" class="btn btn-default btn-lg">목록</a>
+	</div>
 </div>
-<div>
-	<table>
-		<tr>
-			<td>라이선스 키</td>
-			<td>허용인원</td>
-			<td>사용현황</td>
-			<td>대여기록</td>
-		</tr>
-	<%
-		if(subResults.size()==0){
-			%>
+<div class="pb-3 pt-3">
+	<table class="table table-hover">
+		<thead>
 			<tr>
-				<td colspan="4">등록된 라이선스 키가 없습니다.</td>
+				<th>라이선스 키</th>
+				<th>허용인원</th>
+				<th>사용현황</th>
+				<th>대여기록</th>
 			</tr>
-			<%
-		}
-		else {
-			for(SoftwareKeyVO swKeyItem : subResults) {
-			%>
-			<tr>
-				<td><%= swKeyItem.getLicKey() %></td>
-				<td><%= swKeyItem.getAllowCnt() %></td>
-				<td>
-					<button onclick="fn_statusView(<%= result.getSwSeq() %>, '<%= swKeyItem.getLicKey() %>')">
-						사용현황
-					</button>
-				</td>
-				<td>
-					<button onclick="fn_histView(<%= result.getSwSeq() %>, '<%= swKeyItem.getLicKey() %>')">
-						대여기록
-					</button>
-				</td>
-			</tr>
-			<%
+		</thead>
+		<tbody>
+		<%
+			if(subResults.size()==0){
+				%>
+				<tr>
+					<td colspan="4">등록된 라이선스 키가 없습니다.</td>
+				</tr>
+				<%
 			}
-		}
-	%>
+			else {
+				for(SoftwareKeyVO swKeyItem : subResults) {
+				%>
+				<tr>
+					<td><%= swKeyItem.getLicKey() %></td>
+					<td><%= swKeyItem.getAllowCnt() %></td>
+					<td>
+						<button class="btn btn-default" 
+						onclick="fn_statusView(<%= result.getSwSeq() %>, '<%= swKeyItem.getLicKey() %>')">
+							사용현황
+						</button>
+					</td>
+					<td>
+						<button class="btn btn-default" 
+						onclick="fn_histView(<%= result.getSwSeq() %>, '<%= swKeyItem.getLicKey() %>')">
+							대여기록
+						</button>
+					</td>
+				</tr>
+				<%
+				}
+			}
+		%>
+		</tbody>
 	</table>
 </div>
 <div class="modal fade" id="modal" role="dialog"></div>

@@ -71,53 +71,75 @@ $(document).ready(function(){
 </script>
 </head>
 <body>
-<div>
-	<form action="func/swUpdate.jsp" method="POST">
+<div class="pb-3 fs-16">
+	<form action="func/swUpdate.jsp" method="POST" class="form-horizontal">
 		<input type="hidden" name="swSeq" value="<%= result.getSwSeq() %>">
-		SW명: <input type="text" name="swNm" value="<%= result.getSwNm() %>" required><br>
-		제조사: <input type="text" name="mnfNm" value="<%= result.getMnfNm() %>" required><br>
-		버전: <input type="text" name="swVer" value="<%= result.getSwVer() %>" required><br>
-		수량: <input type="number" name="swEa" value="<%= result.getSwEa() %>" ><br>
-		<input type="submit" value="수정">
+		<div class="form-group">
+		  <label for="swNm" class="col-sm-1 control-label">SW명</label>
+		  <div class="col-sm-5">
+		    <input type="text" class="form-control" id="swNm" name="swNm" value="<%= result.getSwNm() %>" required>
+		  </div>
+		  <label for="mnfNm" class="col-sm-1 control-label">제조사</label>
+		  <div class="col-sm-5">
+		    <input type="text" class="form-control" id="mnfNm" name="mnfNm" value="<%= result.getMnfNm() %>" required>
+		  </div>
+		</div>
+		<div class="form-group">
+		  <label for="swVer" class="col-sm-1 control-label">버전</label>
+		  <div class="col-sm-5">
+		    <input type="text" class="form-control" id="swVer" name="swVer" value="<%= result.getSwVer() %>" required>
+		  </div>
+		  <label for="swEa" class="col-sm-1 control-label">수량</label>
+		  <div class="col-sm-5">
+		    <input type="text" class="form-control" id="swEa" name="swEa" value="<%= result.getSwEa() %>" required>
+		  </div>
+		</div>
+		<div class="form-group text-right">
+		    <button type="submit" class="btn btn-primary btn-lg btn-blue mr-2">수정</button>
+		    <a href="retrieve.jsp?swSeq=<%= result.getSwSeq() %>" class="btn btn-default btn-lg mr-4">취소</a>
+	  	</div>
 	</form>
-	<a href="retrieve.jsp?swSeq=<%= result.getSwSeq() %>">
-		<button>취소</button>
-	</a>
 </div>
-<div>
-	<button id="create-btn">등록</button>
-	<button id="update-btn">수정</button>
-	<button id="delete-btn">삭제</button>
-	<table>
-		<tr>
-			<td></td>
-			<td>라이선스 키</td>
-			<td>허용인원</td>
-		</tr>
-	<%
-		if(subResults.size()==0){
-			%>
+<div class="pb-3 pt-3">
+	<div class="form-group text-right">
+		<button id="create-btn" class="btn btn-primary btn-blue mr-2">등록</button>
+		<button id="update-btn" class="btn btn-primary btn-blue mr-2">수정</button>
+		<button id="delete-btn" class="btn btn-default mr-4">삭제</button>
+	</div>
+	<table class="table table-hover">
+		<thead>
 			<tr>
-				<td colspan="4">등록된 라이선스 키가 없습니다.</td>
+				<th></th>
+				<th>라이선스 키</th>
+				<th>허용인원</th>
 			</tr>
-			<%
-		}
-		else {
-			int idx = 0;
-			for(SoftwareKeyVO swKeyItem : subResults) {
+		</thead>
+		<tbody>
+		<%
+			if(subResults.size()==0){
 				%>
-				<tr id="key-list-row-<%= idx %>">
-					<td>
-						<input type="radio" name="licKey" value="<%= idx %>">
-					</td>
-					<td class="licKey"><%= swKeyItem.getLicKey() %></td>
-					<td class="allowCnt"><%= swKeyItem.getAllowCnt() %></td>
+				<tr>
+					<td colspan="4">등록된 라이선스 키가 없습니다.</td>
 				</tr>
 				<%
-				idx++;
 			}
-		}
-	%>
+			else {
+				int idx = 0;
+				for(SoftwareKeyVO swKeyItem : subResults) {
+					%>
+					<tr id="key-list-row-<%= idx %>">
+						<td>
+							<input type="radio" name="licKey" value="<%= idx %>">
+						</td>
+						<td class="licKey"><%= swKeyItem.getLicKey() %></td>
+						<td class="allowCnt"><%= swKeyItem.getAllowCnt() %></td>
+					</tr>
+					<%
+					idx++;
+				}
+			}
+		%>
+		</tbody>
 	</table>
 </div>
 <div class="modal fade" id="modal" role="dialog"></div>

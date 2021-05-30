@@ -52,13 +52,17 @@
 	<!-- Modal content-->
 	<div class="modal-content">
 		<div class="modal-header">
+			<h4 id="modal-title" class="modal-title text-left">대여기록</h4>
 			<button type="button" class="close" data-dismiss="modal">&times;</button>
-			<h4 id="modal-title" class="modal-title">대여기록</h4>
 		</div>
 		<div class="modal-body">
-			<div>
-				<input id="srchUserNm" type="text" name="srchUserNm" value="<%=srchUserNm%>">
-				<input type="button" value="검색" onclick="search()">
+			<div class="form-group row">
+				<div class="col-sm-10">
+			    	<input type="text" class="form-control" id="srchUserNm" name="srchUserNm" value="<%=srchUserNm%>" placeholder="검색할 사용자명" required>
+			  	</div>
+			  	<div class="col-sm-2 text-right">
+					<input type="button" value="검색" onclick="search()" class="btn btn-primary btn-blue">
+				</div>
 			</div>
 			<table class="table">
 				<tr>

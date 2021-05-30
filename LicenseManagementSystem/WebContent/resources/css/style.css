@@ -14,7 +14,7 @@ body{
     padding-bottom: 40px;
 }
 
-table {
+table, .fs-16 {
 	font-size: 16px;
 }
 
@@ -66,4 +66,13 @@ a:link, a:hover, a:active, a:visited {
 
 .search-form {
 	width: 100%;
+}
+
+.form-horizontal .form-group {
+	margin-left: 0px;
+	margin-right: 0px;
+}
+
+.modal-header .close {
+	margin-top: -1rem !important;
 }

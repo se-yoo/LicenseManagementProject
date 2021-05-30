@@ -9,8 +9,8 @@
 		<form id="update-form" action="func/swKeyUpdate.jsp" method="POST">
 			<input name="swSeq" type="hidden" required>
 			<div class="modal-header">
+				<h4 id="modal-title" class="modal-title text-left">수정</h4>
 				<button type="button" class="close" data-dismiss="modal">&times;</button>
-				<h4 id="modal-title" class="modal-title">수정</h4>
 			</div>
 			<div class="modal-body">
 				<table class="table">
@@ -25,7 +25,7 @@
 				</table>
 			</div>
 			<div class="modal-footer">
-				<button type="submit" class="btn btn-success">수정</button>
+				<button type="submit" class="btn btn-primary btn-blue">수정</button>
 				<button type="button" class="btn btn-default" data-dismiss="modal">취소</button>
 			</div>
 		</form>

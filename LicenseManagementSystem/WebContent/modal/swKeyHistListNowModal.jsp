@@ -65,15 +65,15 @@
 	<!-- Modal content-->
 	<div class="modal-content">
 		<div class="modal-header">
+			<h4 id="modal-title" class="modal-title text-left">사용현황</h4>
 			<button type="button" class="close" data-dismiss="modal">&times;</button>
-			<h4 id="modal-title" class="modal-title">사용현황</h4>
 		</div>
 		<div class="modal-body">
-			<div>
-				<button onclick="addItem()">
+			<div class="form-group text-right">
+				<button onclick="addItem()" class="btn btn-primary btn-blue">
 					추가
 				</button>
-				<button onclick="setStatus()">
+				<button onclick="setStatus()" class="btn btn-primary btn-blue">
 					사용 완료
 				</button>
 			</div>

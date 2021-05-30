@@ -35,7 +35,7 @@
 		out.println(e.toString());
 	}
 %>
-<div class="pb-3 pt-3">
+<div class="pb-3">
 	<form action="main.jsp" method="POST">
 		<div class="form-group row">
 			<div class="col-2 pr-1">

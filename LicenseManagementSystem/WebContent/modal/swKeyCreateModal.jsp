@@ -8,8 +8,8 @@
 		<form id="create-form" action="func/swKeyCreate.jsp" method="POST">
 			<input name="swSeq" type="hidden" required>
 			<div class="modal-header">
+				<h4 id="modal-title" class="modal-title text-left">등록</h4>
 				<button type="button" class="close" data-dismiss="modal">&times;</button>
-				<h4 id="modal-title" class="modal-title">등록</h4>
 			</div>
 			<div class="modal-body">
 				<table class="table">
@@ -24,7 +24,7 @@
 				</table>
 			</div>
 			<div class="modal-footer">
-				<button type="submit" class="btn btn-success">등록</button>
+				<button type="submit" class="btn btn-primary btn-blue">등록</button>
 				<button type="button" class="btn btn-default" data-dismiss="modal">취소</button>
 			</div>
 		</form>

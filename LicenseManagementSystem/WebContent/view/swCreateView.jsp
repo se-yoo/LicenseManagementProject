@@ -6,7 +6,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
 </head>
 <body>
-<form class="form-horizontal" action="func/swCreate.jsp" method="POST">
+<form class="form-horizontal fs-16" action="func/swCreate.jsp" method="POST">
 	<div class="form-group">
 	  <label for="swNm" class="col-sm-1 control-label">SW명</label>
 	  <div class="col-sm-5">
@@ -29,12 +29,8 @@
 	</div>
 	<div class="form-group text-right">
 	    <button type="submit" class="btn btn-primary btn-lg btn-blue mr-2">등록</button>
-	    <div class="mr-4" style="display: inline-block">
-			<a href="main.jsp">
-				<div class="btn btn-default btn-lg">취소</div>
-			</a>
-		</div>
-  </div>
+	    <a href="main.jsp" class="btn btn-default btn-lg mr-4">취소</a>
+  	</div>
 </form>
 </body>
 </html>
