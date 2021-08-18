@@ -6,7 +6,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
 </head>
 <body>
-<form class="form-horizontal fs-16" action="func/swCreate.jsp" method="POST">
+<form class="form-horizontal fs-16" action="func/swCreate.jsp" method="POST" accept-charset="utf-8">
 	<div class="form-group">
 	  <label for="swNm" class="col-sm-1 control-label">SW명</label>
 	  <div class="col-sm-5">
